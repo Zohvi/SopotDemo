@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AspnetCoreDemobackend.Models;
+using System.Text;
 
 namespace AspnetCoreDemobackend.Controllers
 {
@@ -40,9 +41,16 @@ namespace AspnetCoreDemobackend.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult OmaTesti()
+        public IActionResult TietokantaTesti()
         {
-            return Content("Hello World!");
+            StringBuilder teksti = new StringBuilder();
+
+            NorthwindContext malli = new NorthwindContext();
+            foreach (Customers asiakas in malli.Customers)
+            {
+                teksti.AppendLine(asiakas.CompanyName);
+            }
+            return Content(teksti.ToString());
         }
 
        
